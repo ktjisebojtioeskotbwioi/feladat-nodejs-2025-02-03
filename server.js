@@ -36,6 +36,14 @@ app.get('/api/v1/mozi', (req, res) => {
     });
 });
 
+app.get('/api/v1/mozi/:id', (req, res) => {
+    const { id } = req.params;
+    db.all(`SELECT * FROM filmek WHERE id = ?`, [id], (err, rows) => {
+        if (err) return res.status(500).send(err.message);
+        res.send(rows);
+    });
+});
+
 app.put('/api/v1/mozi/:id', (req, res) => {
     const { id } = req.params;
     const { cim, mufaj, kategoria, rendezo } = req.body;
